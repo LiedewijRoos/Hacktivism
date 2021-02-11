@@ -1,3 +1,10 @@
+'''
+This is VERY quick and Dirty. 
+
+Good luck trying to understand it! I don't.
+
+'''
+
 import folium
 from folium.plugins import HeatMapWithTime
 import csv,datetime,os,pytz
@@ -16,7 +23,6 @@ with open("ParlerVideoFromCapitol.csv","r") as csvf:
                 tzinfo=pytz.utc).astimezone(pytz.timezone("EST5EDT"))])
         except Exception as e:
             print(e)
-    print(d)
     oldt=d[0][2]
     temp=[]
     print(oldt)
@@ -42,17 +48,10 @@ with open("ParlerVideoFromCapitol.csv","r") as csvf:
                     temp.append([p[0],p[1]])
                     donme.append(ct)
                     d.remove(p)
-    print(data)
-    print(times)
-    print(len(data))
-    print(len(times))
+    
+    #https://www.reddit.com/r/dataisbeautiful/comments/kvx88n
+    #See this Reddit post for the output :)
     hmap = folium.Map(location=[38.88, -77.02], zoom_start=2)
-    hm_wide = HeatMapWithTime(data=data,index=times,
-                      min_opacity=0.2,
-                      radius=19,
-                              auto_play=True,
-                              max_speed=3
-                              )
-
+    hm_wide = HeatMapWithTime(data=data,index=times,min_opacity=0.2,auto_play=True,max_speed=3)
     hmap.add_child(hm_wide)
-    hmap.save('bfafma.html')
+    hmap.save('parlerVideoData.html')
